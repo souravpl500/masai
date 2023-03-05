@@ -1,12 +1,11 @@
 const express = require("express");
-const app = express();
+const { connection } = require("./Configs/db");
+const { userRouter } = require("./Routes/User.route");
+const { bugRouter } = require("./Routes/Bug.route");
+require("dotenv").config();
 const cors = require("cors");
-const { wordRouter } = require("./routes/words.routes");
-const { userRouter } = require("./routes/User.route");
-const { scoreRouter } = require("./routes/scores.routes");
-const { bugRouter } = require("./routes/Bug.route");
-const { connection } = require("./config/db");
 
+const app = express();
 app.use(
   cors({
     origin: "*",
@@ -21,14 +20,15 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 app.use("/bug", bugRouter);
-app.use("/word", wordRouter);
-app.use("/score", scoreRouter);
 
-app.listen(4500, async () => {
+app.listen(process.env.port, async () => {
   try {
     await connection;
-    console.log("Server has been started on 4500");
+    console.log("Connected to the DB");
   } catch (err) {
+    console.log("Trouble connecting to the DB");
     console.log(err);
   }
+  console.log(`Running at ${process.env.port} Port`);
 });
+
