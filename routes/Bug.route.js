@@ -18,7 +18,7 @@ bugRouter.post("/", async (req, res) => {
   try {
     const newBug = new BugModel(payload);
     await newBug.save();
-    res.status(201).json({ newPost, message: "New Bug successfully Added" });
+    res.status(201).send("New Bug successfully Added");
   } catch (err) {
     console.log("err : ", err);
     res.send({ msg: err });
@@ -56,3 +56,4 @@ bugRouter.delete("/:id", async (req, res) => {
 });
 
 module.exports = { bugRouter };
+
