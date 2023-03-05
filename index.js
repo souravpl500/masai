@@ -4,6 +4,7 @@ const cors = require("cors");
 const { wordRouter } = require("./routes/words.routes");
 const { userRouter } = require("./routes/User.route");
 const { scoreRouter } = require("./routes/scores.routes");
+const { bugRouter } = require("./routes/Bug.route");
 const { connection } = require("./config/db");
 
 app.use(
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRouter);
+app.use("/bug", bugRouter);
 app.use("/word", wordRouter);
 app.use("/score", scoreRouter);
 
