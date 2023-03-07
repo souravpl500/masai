@@ -1,7 +1,7 @@
 const express = require("express");
-const { connection } = require("./configs/db");
+const { connection } = require("./Configs/db");
 const { userRouter } = require("./routes/user.routes");
-const { bugRouter } = require("./routes/bug.routes");
+const { jobRouter } = require("./routes/job.routes");
 const cors = require("cors");
 
 const app = express();
@@ -18,13 +18,15 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", userRouter);
-app.use("/bug", bugRouter);
+app.use("/jobs", jobRouter);
 
 app.listen(4500, async () => {
   try {
     await connection;
-    console.log("Server has been started on 4500");
+    console.log("Connected to the DB");
   } catch (err) {
+    console.log("Trouble connecting to the DB");
     console.log(err);
   }
+  console.log(`Running at 4500 Port`);
 });
