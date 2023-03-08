@@ -27,6 +27,22 @@ jobRouter.get("/", (req, res) => {
   });
 });
 
+jobRouter.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const job = await JobModel.findById({ _id: id });
+    if (job) {
+      res.status(200).json({
+        success: true,
+        Job: job,
+      });
+    }
+  } catch (err) {
+    console.log({ err: err });
+    res.send({ success: false, err: err });
+  }
+});
+
 jobRouter.post("/", async (req, res) => {
   const payload = req.body;
   try {
